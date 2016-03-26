@@ -10,7 +10,6 @@ require "sinatra/reloader" if development?
 
 require './lib/model'
 require './lib/extensions'
-require './lib/sinatra-schema-backup'
 
 use Rack::Deflater
 set :erb, :escape_html => true
