@@ -7,8 +7,8 @@
 			initialize: function() {
 				this.websocket = new JSONSocket({
 					url: 'ws://localhost:4567/sinatra-live-pages/ws',
-					on_ok: function() {
-						alert('ok from server');
+					on_exec: function(data) {
+						$(data.selector)[data.method](data.content);
 					}
 				});
 			}

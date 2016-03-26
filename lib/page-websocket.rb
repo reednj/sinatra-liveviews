@@ -10,7 +10,12 @@ class PageWebSocket < WebSocketHelper
 	def on_open
 		super
 
-		self.send 'ok'
+		self.send('exec', {
+			:selector => '#js-status',
+			:method => 'text',
+			:content => 'text from server'
+		})
+
 	end
 
 	def on_close
