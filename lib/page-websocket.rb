@@ -1,3 +1,4 @@
+require './lib/model.rb'
 require './lib/websocket'
 
 class PageWebSocket < WebSocketHelper
@@ -10,7 +11,11 @@ class PageWebSocket < WebSocketHelper
 	def on_open
 		super
 
-		self.element('#js-status').text = '<i>hello</i>'
+		UserScore.dataset.on_count_change do |scores|
+			document.element('#js-status').text = "#{scores.count} records"
+		end
+
+		document.element('#js-status').text = 'ready'
 
 	end
 
@@ -18,10 +23,22 @@ class PageWebSocket < WebSocketHelper
 		super
 	end
 
-	def element(selector)
-		ClientElement.new(selector, self)
+	def document
+		@document = ClientDocument.new(self) if @document.nil?
+		return @document
 	end
 	
+end
+
+class ClientDocument
+	def initialize(client)
+		raise 'client must be a WebSocketHelper' unless client.is_a? WebSocketHelper
+		@client = client
+	end
+
+	def element(selector)
+		ClientElement.new(selector, @client)
+	end
 end
 
 class ClientElement
