@@ -9,13 +9,12 @@ class Sequel::Model
 	end
 end
 
-class User < Sequel::Model
-
-	dataset_module do
-		def exist?(id)
-			!self[id].nil?
-		end
-	end
-
+DB.create_table? :user_scores do
+	primary_key :id
+	Integer :user_id, :null => false
+	Float :score
 end
 
+class UserScore < Sequel::Model
+
+end
