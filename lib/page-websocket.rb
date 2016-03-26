@@ -7,15 +7,16 @@ class PageWebSocket < WebSocketHelper
 		super(ws)
 	end
 
-
 	def on_open
 		super
 
 		UserScore.dataset.on_count_change do |scores|
-			document.element('#js-status').text = "#{scores.count} records"
+			document.element('#js-count').text = "#{scores.count} records"
+			document.element('#js-sum').text = "total: #{scores.sum(:score).round}"
+			document.element('#js-avg').text = "avg: #{scores.avg(:score).round(2)}"
 		end
 
-		document.element('#js-status').text = 'ready'
+		document.element('#js-count').text = 'ready'
 
 	end
 

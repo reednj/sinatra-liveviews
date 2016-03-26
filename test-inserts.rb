@@ -5,7 +5,7 @@ class App
 		loop do
 			s = insert_random
 			puts s.score.round(2)
-			sleep 2
+			sleep 0.34
 		end
 	end
 

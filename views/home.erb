@@ -18,8 +18,18 @@
 			window._app = new App();
 		});
 	</script>
+
+	<style type="text/css">
+		body {
+			font-family: arial;
+			margin: 16px;
+		}
+
+	</style>
 <% end %>
 
 <% content_for :body do %>
-	<h1 id='js-status'>...</h1>
+	<h1 id='js-count'>...</h1>
+	<h1 id='js-sum'>...</h1>
+	<h1 id='js-avg'>...</h1>
 <% end %>
