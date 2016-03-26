@@ -10,6 +10,7 @@ require "sinatra/reloader" if development?
 
 require './lib/model'
 require './lib/extensions'
+require './lib/page-websocket'
 
 use Rack::Deflater
 set :erb, :escape_html => true
@@ -18,6 +19,7 @@ set :version, 'v0.1'
 configure :development do
 	also_reload './lib/model.rb'
 	also_reload './lib/extensions.rb'
+	also_reload './lib/page-websocket.rb'
 end
 
 configure :production do
@@ -41,5 +43,13 @@ get '/' do
 	erb :home, :layout => :_layout
 end
 
+get '/sinatra-live-pages/ws' do
+	return 'websockets only' if !request.websocket?
+
+	request.websocket do |ws|
+		PageWebSocket.new ws,  { }
+	end
+
+end
 
 

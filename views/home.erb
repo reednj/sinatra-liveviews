@@ -1,10 +1,25 @@
 
 <% content_for :header do %>
+	<script type='text/javascript' src='/js/socket.js'></script>
+
 	<script type="text/javascript">
-		
+		var App = new Class({
+			initialize: function() {
+				this.websocket = new JSONSocket({
+					url: 'ws://localhost:4567/sinatra-live-pages/ws',
+					on_ok: function() {
+						alert('ok from server');
+					}
+				});
+			}
+		});
+
+		$(document).ready(function() {
+			window._app = new App();
+		});
 	</script>
 <% end %>
 
 <% content_for :body do %>
-	<h1>HOME</h1>
+	<h1 id='js-status'>...</h1>
 <% end %>
