@@ -86,6 +86,12 @@ class ClientDocument
 	def element(selector)
 		ClientElement.new(selector, @client)
 	end
+
+	def on_load
+		# maybe later we can do something else with this, but for now
+		# just call the load method straight away
+		yield()
+	end
 end
 
 class ClientElement

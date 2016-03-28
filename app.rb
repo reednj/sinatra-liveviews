@@ -48,7 +48,10 @@ get '/admin/stats' do
 end
 
 live '/admin/stats' do |document|
-	document.element('#js-count').text = 'ready'
+
+	document.on_load do
+		document.element('#js-count').text = 'ready'
+	end
 
 	UserScore.dataset.on_count_change do |scores|
 		document.element('#js-count').text = "#{scores.count} records"
