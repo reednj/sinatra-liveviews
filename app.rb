@@ -1,7 +1,13 @@
+
 require 'sinatra'
 require 'sinatra/cookies'
 require 'sinatra/content_for'
 require 'sinatra/json'
+
+if development?
+	require 'bundler'
+	Bundler.require
+end
 
 require 'json'
 require 'erubis'
@@ -11,6 +17,8 @@ require "sinatra/reloader" if development?
 require './lib/model'
 require './lib/extensions'
 require './lib/page-websocket'
+
+require 'sinatra/liveviews'
 
 use Rack::Deflater
 set :erb, :escape_html => true

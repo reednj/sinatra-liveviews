@@ -10,3 +10,4 @@ gem 'rest-client'
 gem 'erubis'
 gem 'oauth2'
 
+gem "sinatra-liveviews", :path => "/Users/reednj/Documents/dev/sinatra-live-pages/gem/sinatra-liveviews"
