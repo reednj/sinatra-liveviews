@@ -1,5 +1,5 @@
 PATH
-  remote: gem/sinatra-liveviews
+  remote: /Users/reednj/Documents/dev/sinatra-live-pages/gem/sinatra-liveviews
   specs:
     sinatra-liveviews (0.1.0)
       json
