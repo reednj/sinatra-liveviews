@@ -2,6 +2,8 @@ PATH
   remote: gem/sinatra-liveviews
   specs:
     sinatra-liveviews (0.1.0)
+      sinatra
+      sinatra-websocket
 
 GEM
   remote: https://rubygems.org/

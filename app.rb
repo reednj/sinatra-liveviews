@@ -16,15 +16,12 @@ require "sinatra/reloader" if development?
 require 'sinatra/liveviews'
 
 require './lib/model'
-require './lib/extensions'
 
 use Rack::Deflater
 set :erb, :escape_html => true
-set :version, 'v0.1'
 
 configure :development do
 	also_reload './lib/model.rb'
-	also_reload './lib/extensions.rb'
 end
 
 configure :production do
