@@ -18,7 +18,7 @@ module LivePages
 	end
 
 	def self.registered(app)
-		app.get '/sinatra/live-pages/ws' do
+		app.get '/sinatra/liveviews/ws' do
 			return 'websockets only' if !request.websocket?
 
 			request.websocket do |ws|
@@ -29,7 +29,7 @@ module LivePages
 			end
 		end
 
-		app.get '/sinatra/live-pages.js' do
+		app.get '/sinatra/liveviews.js' do
 			folder = File.join File.dirname(__FILE__), './js/'
 			js = ['extensions.js', 'socket.js', 'live-pages.js'].map do |file|
 				path = File.join folder, file
