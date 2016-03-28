@@ -122,3 +122,14 @@ var JSONSocket = new Class({
 		return this._stats;
 	}
 });
+
+JSONSocket.websocketUrlForPath = function(path) {
+	var protocol = 'ws://';
+
+	if(document.location.protocol.indexOf('https') != -1) {
+		protocol = 'wss://';
+	}
+	
+	return protocol + document.location.hostname + ':' + (document.location.port || '80') + (path || '/');;
+};
+

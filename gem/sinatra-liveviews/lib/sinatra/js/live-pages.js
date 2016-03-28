@@ -1,8 +1,10 @@
 var LivePageHandler = new Class({
 	initialize: function() {
 		var referrer_url = encodeURIComponent(document.location.href);
+		var socket_url = JSONSocket.websocketUrlForPath('/sinatra/liveviews/ws');
+
 		this.websocket = new JSONSocket({
-			url: 'ws://localhost:4567/sinatra/liveviews/ws?url=' + referrer_url,
+			url: socket_url + '?url=' + referrer_url,
 			on_exec: function(data) {
 				$(data.selector)[data.method](data.content);
 			},
