@@ -1,13 +1,11 @@
 require 'sinatra/base'
 
-require './lib/model.rb'
 require './lib/websocket'
 
 module LivePages
 	def live(url, options = {}, &block)
 		method_name = _method_name 'LIVE', url
 		_register_callback method_name, &block
-
 	end
 
 	def _method_name(verb, url)
@@ -57,13 +55,8 @@ class PageWebSocket < WebSocketHelper
 			@app.send(method_name, document)
 		else
 			# send an error back to the client
+			self.send 'message', { :content => "no live handler for #{path}" }
 		end
-
-		#UserScore.dataset.on_count_change do |scores|
-		#	document.element('#js-count').text = "#{scores.count} records"
-		#	document.element('#js-sum').text = "total: #{scores.sum(:score).round}"
-		#	document.element('#js-avg').text = "avg: #{scores.avg(:score).round(2)}"
-		#end
 
 	end
 

@@ -49,4 +49,10 @@ end
 
 live '/admin/stats' do |document|
 	document.element('#js-count').text = 'ready'
+
+	UserScore.dataset.on_count_change do |scores|
+		document.element('#js-count').text = "#{scores.count} records"
+		document.element('#js-sum').text = "total: #{scores.sum(:score).round}"
+		document.element('#js-avg').text = "avg: #{scores.avg(:score).round(2)}"
+	end
 end
