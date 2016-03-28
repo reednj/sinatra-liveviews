@@ -1,45 +1,17 @@
 
 require 'sinatra'
-require 'sinatra/cookies'
-require 'sinatra/content_for'
-require 'sinatra/json'
 
 if development?
 	require 'bundler'
+	require 'sinatra/reloader'
 	Bundler.require
 end
-
-require 'json'
-require 'erubis'
-
-require "sinatra/reloader" if development?
 
 require 'sinatra/liveviews'
 require './lib/model'
 
-
-use Rack::Deflater
-set :erb, :escape_html => true
-
 configure :development do
 	also_reload './lib/model.rb'
-end
-
-configure :production do
-
-end
-
-helpers do
-
-	# basically the same as a regular halt, but it sends the message to the 
-	# client with the content type 'text/plain'. This is important, because
-	# the client error handlers look for that, and will display the message
-	# if it is text/plain and short enough
-	def halt_with_text(code, message = nil)
-		message = message.to_s if !message.nil?
-		halt code, {'Content-Type' => 'text/plain'}, message
-	end
-
 end
 
 get '/' do
@@ -47,7 +19,7 @@ get '/' do
 end
 
 get '/admin/stats' do
-	erb :home, :layout => :_layout
+	erb :home
 end
 
 live '/admin/stats' do |document|

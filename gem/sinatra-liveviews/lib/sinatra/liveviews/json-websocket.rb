@@ -8,6 +8,7 @@
 #
 # Nathan Reed (@reednj) 2013-08-21
 
+require 'json'
 require 'sinatra-websocket'
 
 class WebSocketHelper
