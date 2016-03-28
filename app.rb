@@ -43,13 +43,6 @@ get '/' do
 	erb :home, :layout => :_layout
 end
 
-get '/sinatra-live-pages/ws' do
-	return 'websockets only' if !request.websocket?
-
-	request.websocket do |ws|
-		PageWebSocket.new ws,  { }
-	end
-
+live '/' do |document|
+	document.element('#js-count').text = 'ready'
 end
-
-
