@@ -27,6 +27,16 @@ module LivePages
 				}
 			end
 		end
+
+		app.get '/sinatra/live-pages.js' do
+			folder = './public/js/'
+			js = ['extensions.js', 'socket.js', 'live-pages.js'].map do |file|
+				path = File.join folder, file
+				File.read path
+			end
+
+			return 200, {'Content-type' => 'text/javascript'}, js.join("\n")
+		end
 	end
 end
 
