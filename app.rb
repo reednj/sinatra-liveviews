@@ -13,12 +13,10 @@ require 'json'
 require 'erubis'
 
 require "sinatra/reloader" if development?
+require 'sinatra/liveviews'
 
 require './lib/model'
 require './lib/extensions'
-require './lib/page-websocket'
-
-require 'sinatra/liveviews'
 
 use Rack::Deflater
 set :erb, :escape_html => true
@@ -27,7 +25,6 @@ set :version, 'v0.1'
 configure :development do
 	also_reload './lib/model.rb'
 	also_reload './lib/extensions.rb'
-	also_reload './lib/page-websocket.rb'
 end
 
 configure :production do
