@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'sinatra/liveviews/version'
 
 require_relative './liveviews/page-websocket'
+require_relative '../sequel/sequel-extensions'
 
 module LivePages
 	def live(url, options = {}, &block)
