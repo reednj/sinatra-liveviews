@@ -40,9 +40,13 @@ helpers do
 end
 
 get '/' do
+	redirect to('/admin/stats')
+end
+
+get '/admin/stats' do
 	erb :home, :layout => :_layout
 end
 
-live '/' do |document|
+live '/admin/stats' do |document|
 	document.element('#js-count').text = 'ready'
 end

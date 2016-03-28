@@ -11,8 +11,7 @@ module LivePages
 	end
 
 	def _method_name(verb, url)
-		# "#{verb} #{url}".to_sym
-		:live_page_callback
+		"#{verb} #{url}".to_sym
 	end
 
 	def _register_callback(method_name, &block)
@@ -25,7 +24,8 @@ module LivePages
 
 			request.websocket do |ws|
 				PageWebSocket.new ws, { 
-					:app => self
+					:app => self,
+					:url => params[:url] || request.referrer
 				}
 			end
 		end
@@ -40,6 +40,8 @@ class PageWebSocket < WebSocketHelper
 
 	def initialize(ws, options = {})
 		super(ws)
+
+		# todo: validate the url and the app instances
 		@app = options[:app]
 		@url = options[:url]
 	end
@@ -47,7 +49,15 @@ class PageWebSocket < WebSocketHelper
 	def on_open
 		super
 
-		@app.live_page_callback(document)
+		uri = URI.parse(@url)
+		path = uri.path
+		method_name = @app.class._method_name('LIVE', path)
+
+		if @app.respond_to? method_name
+			@app.send(method_name, document)
+		else
+			# send an error back to the client
+		end
 
 		#UserScore.dataset.on_count_change do |scores|
 		#	document.element('#js-count').text = "#{scores.count} records"
@@ -62,13 +72,19 @@ class PageWebSocket < WebSocketHelper
 	end
 
 	def document
-		@document = ClientDocument.new(self) if @document.nil?
+		if @document.nil?
+			@document = ClientDocument.new(self)
+			@document.location = @url
+		end
+
 		return @document
 	end
 	
 end
 
 class ClientDocument
+	attr_accessor :location
+
 	def initialize(client)
 		raise 'client must be a WebSocketHelper' unless client.is_a? WebSocketHelper
 		@client = client

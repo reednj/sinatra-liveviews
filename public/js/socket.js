@@ -47,7 +47,11 @@ var JSONSocket = new Class({
 		if(this.options.autoreconnect === true) {
 			this.open.delay(this.options.connectWait * 1000, this);
 			this.options.connectWait *= 2;
-			this.options.connectWait = this.options.connectWait.limit(1, 30);
+			
+			if(this.options.connectWait > 30) {
+				this.options.connectWait = 30;
+			}
+
 		}
 	},
 	
