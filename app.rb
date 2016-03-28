@@ -14,8 +14,9 @@ require 'erubis'
 
 require "sinatra/reloader" if development?
 
-require './lib/model'
 require 'sinatra/liveviews'
+require './lib/model'
+
 
 use Rack::Deflater
 set :erb, :escape_html => true

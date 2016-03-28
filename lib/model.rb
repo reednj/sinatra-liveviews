@@ -1,13 +1,7 @@
 require 'sequel'
-require_relative '../config/app.config'
+require 'sqlite3'
 
-DB = Sequel.connect DB_CONFIG
-
-class Sequel::Model
-	def to_json(args)
-		self.values.to_json(args)
-	end
-end
+DB = Sequel.sqlite './liveviews.demo.db'
 
 DB.create_table? :user_scores do
 	primary_key :id
